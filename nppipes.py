@@ -44,9 +44,23 @@ __all__ = [
 @P.Pipe
 def as_array(seq):
     from numpy import array
-    l = []
-    l.extend(seq)
-    return array(l)
+    return array(list(seq))
+
+
+@P.Pipe
+def itake(seq, *args, **kwargs):
+    from numpy import take
+    for item in seq:
+        yield take(item, *args, **kwargs)
+    return
+
+
+@P.Pipe
+def iexpand_dims(seq, *args, **kwargs):
+    from numpy import expand_dims
+    for item in seq:
+        yield expand_dims(item, *args, **kwargs)
+    return
 
 
 if __name__ == "__main__":
