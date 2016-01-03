@@ -95,5 +95,22 @@ def iattach(seq, key, func, *args, **kwargs):
         yield item
 
 
+@P.Pipe
+def as_key(iterable, key, func=None, *args, **kwargs):
+    if func:
+        d = next(iterable)
+        d[key] = func(d, *args, **kwargs)
+        yield d
+    else:
+        yield {key: next(iterable)}
+
+
+@P.Pipe
+def del_key(iterable, key):
+    d = next(iterable)
+    del d[key]
+    yield d
+
+
 if __name__ == "__main__":
     pass

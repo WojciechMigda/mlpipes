@@ -44,7 +44,19 @@ __all__ = [
 @P.Pipe
 def as_array(seq):
     from numpy import array
-    return array(list(seq))
+    yield array(next(seq))
+
+
+@P.Pipe
+def loadtxt(obj, *args, **kwargs):
+    from numpy import loadtxt
+    yield loadtxt(next(obj), *args, **kwargs)
+
+
+@P.Pipe
+def genfromtxt(obj, *args, **kwargs):
+    from numpy import genfromtxt
+    yield genfromtxt(next(obj), *args, **kwargs)
 
 
 @P.Pipe
