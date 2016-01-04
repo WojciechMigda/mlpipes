@@ -54,13 +54,14 @@ def loadtxt(obj, *args, **kwargs):
 
 
 @P.Pipe
-def genfromtxt(obj, *args, **kwargs):
+def genfromtxt(iterable, *args, **kwargs):
     from numpy import genfromtxt
-    yield genfromtxt(next(obj), *args, **kwargs)
+    for item in iterable:
+        yield genfromtxt(item, *args, **kwargs)
 
 
 @P.Pipe
-def itake(seq, *args, **kwargs):
+def take(seq, *args, **kwargs):
     from numpy import take
     for item in seq:
         yield take(item, *args, **kwargs)
@@ -68,12 +69,25 @@ def itake(seq, *args, **kwargs):
 
 
 @P.Pipe
-def iexpand_dims(seq, *args, **kwargs):
+def expand_dims(seq, *args, **kwargs):
     from numpy import expand_dims
     for item in seq:
         yield expand_dims(item, *args, **kwargs)
     return
 
+@P.Pipe
+def strip(iterable, *args, **kwargs):
+    from numpy.core.defchararray import strip
+    for item in iterable:
+        yield strip(item, *args, **kwargs)
+
+
+@P.Pipe
+def place(iterable, pred, vals):
+    from numpy import place
+    for item in iterable:
+        place(item, pred(item), vals)
+        yield item
 
 if __name__ == "__main__":
     pass

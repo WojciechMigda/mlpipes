@@ -98,18 +98,25 @@ def iattach(seq, key, func, *args, **kwargs):
 @P.Pipe
 def as_key(iterable, key, func=None, *args, **kwargs):
     if func:
-        d = next(iterable)
-        d[key] = func(d, *args, **kwargs)
-        yield d
+        for d in iterable:
+            d[key] = func(d, *args, **kwargs)
+            yield d
     else:
-        yield {key: next(iterable)}
+        for value in iterable:
+            yield {key: value}
+
+
+@P.Pipe
+def getitem(iterable, key, *args, **kwargs):
+    for d in iterable:
+        yield d[key]
 
 
 @P.Pipe
 def del_key(iterable, key):
-    d = next(iterable)
-    del d[key]
-    yield d
+    for d in iterable:
+        del d[key]
+        yield d
 
 
 if __name__ == "__main__":
