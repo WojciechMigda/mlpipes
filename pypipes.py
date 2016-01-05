@@ -97,6 +97,11 @@ def iattach(seq, key, func, *args, **kwargs):
 
 @P.Pipe
 def as_key(iterable, key, func=None, *args, **kwargs):
+    #if type(func) is P.Pipe:
+    #    for d in iterable:
+    #        d[key] = d | func(*args, **kwargs)
+    #        yield d
+    #elif func:
     if func:
         for d in iterable:
             d[key] = func(d, *args, **kwargs)
@@ -107,9 +112,16 @@ def as_key(iterable, key, func=None, *args, **kwargs):
 
 
 @P.Pipe
-def getitem(iterable, key, *args, **kwargs):
+def getitem(iterable, key):
     for d in iterable:
         yield d[key]
+
+
+@P.Pipe
+def setitem(iterable, out, key):
+    for d in iterable:
+        out[key] = d
+        yield out
 
 
 @P.Pipe
@@ -117,6 +129,20 @@ def del_key(iterable, key):
     for d in iterable:
         del d[key]
         yield d
+
+
+@P.Pipe
+def debug_iterable(iterable):
+    print("DEBUG iterable:", type(iterable))
+    for item in iterable:
+        yield item
+
+
+@P.Pipe
+def debug_item(iterable):
+    for item in iterable:
+        print("DEBUG item:", type(item))
+        yield item
 
 
 if __name__ == "__main__":

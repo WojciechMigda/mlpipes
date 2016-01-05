@@ -42,15 +42,17 @@ __all__ = [
 
 
 @P.Pipe
-def as_array(seq):
+def as_array(iterable):
     from numpy import array
-    yield array(next(seq))
+    for item in iterable:
+        yield array(item)
 
 
 @P.Pipe
-def loadtxt(obj, *args, **kwargs):
+def loadtxt(iterable, *args, **kwargs):
     from numpy import loadtxt
-    yield loadtxt(next(obj), *args, **kwargs)
+    for item in iterable:
+        yield loadtxt(item, *args, **kwargs)
 
 
 @P.Pipe
@@ -88,6 +90,13 @@ def place(iterable, pred, vals):
     for item in iterable:
         place(item, pred(item), vals)
         yield item
+
+
+@P.Pipe
+def astype(iterable, tp):
+    for item in iterable:
+        yield item.astype(tp)
+
 
 if __name__ == "__main__":
     pass
