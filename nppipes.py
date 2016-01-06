@@ -98,5 +98,32 @@ def astype(iterable, tp):
         yield item.astype(tp)
 
 
+@P.Pipe
+def as_columns(iterable):
+    for item in iterable:
+        for i in range(item.shape[1]):
+            yield item[:, i]
+
+
+@P.Pipe
+def label_encoder(n=1):
+    from sklearn.preprocessing import LabelEncoder
+    for item in range(n):
+        le = LabelEncoder()
+        yield le
+
+
+@P.Pipe
+def fit_transform(iterable, models):
+    from itertools import izip
+    for X, clf in izip(iterable, models):
+        yield clf.fit_transform(X)
+
+
+@P.Pipe
+def dstack(iterable):
+    from numpy import dstack
+    yield dstack(tuple(iterable))
+
 if __name__ == "__main__":
     pass
