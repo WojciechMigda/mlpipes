@@ -121,6 +121,13 @@ def fit_transform(iterable, models):
 
 
 @P.Pipe
+def transform(iterable, models):
+    from itertools import izip
+    for X, clf in izip(iterable, models):
+        yield clf.transform(X)
+
+
+@P.Pipe
 def dstack(iterable):
     from numpy import dstack
     yield dstack(tuple(iterable))
