@@ -145,5 +145,10 @@ def debug_item(iterable):
         yield item
 
 
+@P.Pipe
+def as_set(iterable):
+    return set(iterable)
+
+
 if __name__ == "__main__":
     pass
