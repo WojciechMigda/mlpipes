@@ -10,7 +10,7 @@
 #
 ################################################################################
 #
-#  Filename: pipipes.py
+#  Filename: pypipes.py
 #
 #  Decription:
 #      General python pipes
@@ -37,7 +37,8 @@ __author__ = 'Wojciech Migda'
 __date__ = '2016-01-02'
 __version__ = '0.0.1'
 __all__ = [
-    'unzip', 'as_csv_rows', 'iformat', 'loopcount', 'timestamp', 'iattach'
+    'unzip', 'as_csv_rows', 'iformat', 'loopcount', 'timestamp', 'iattach',
+    'as_key', 'getitem', 'setitem', 'del_key', 'as_set'
 ]
 
 

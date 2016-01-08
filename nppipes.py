@@ -10,7 +10,7 @@
 #
 ################################################################################
 #
-#  Filename: pipipes.py
+#  Filename: nppipes.py
 #
 #  Decription:
 #      Numpy pipes
@@ -37,7 +37,9 @@ __author__ = 'Wojciech Migda'
 __date__ = '2016-01-02'
 __version__ = '0.0.1'
 __all__ = [
-    'as_array'
+    'as_array', 'loadtxt', 'genfromtxt', 'take', 'expand_dims',
+    'strip', 'place', 'putmask', 'astype', 'as_columns', 'label_encoder',
+    'fit_transform', 'transform', 'dstack',
 ]
 
 
@@ -93,6 +95,14 @@ def place(iterable, pred, vals):
 
 
 @P.Pipe
+def putmask(iterable, *args, **kwargs):
+    from numpy import putmask
+    for item in iterable:
+        putmask(item, *args, **kwargs)
+        yield item
+
+
+@P.Pipe
 def astype(iterable, tp):
     for item in iterable:
         yield item.astype(tp)
@@ -131,6 +141,7 @@ def transform(iterable, models):
 def dstack(iterable):
     from numpy import dstack
     yield dstack(tuple(iterable))
+
 
 if __name__ == "__main__":
     pass
