@@ -119,9 +119,14 @@ def as_columns(iterable):
 def label_encoder(n=1):
     from sklearn.preprocessing import LabelEncoder
     for item in range(n):
-        le = LabelEncoder()
-        yield le
+        yield LabelEncoder()
 
+
+@P.Pipe
+def standard_scaler(n=1, **kwargs):
+    from sklearn.preprocessing import StandardScaler
+    for item in range(n):
+        yield StandardScaler(**kwargs)
 
 @P.Pipe
 def fit_transform(iterable, models):
