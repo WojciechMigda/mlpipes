@@ -49,5 +49,12 @@ def h5new(iterable):
             yield f
 
 
+@P.Pipe
+def h5open(iterable):
+    from h5py import File
+    for fname in iterable:
+        with File(fname, 'r') as f:
+            yield f
+
 if __name__ == "__main__":
     pass
