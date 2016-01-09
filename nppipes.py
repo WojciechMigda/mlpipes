@@ -116,6 +116,13 @@ def as_columns(iterable):
 
 
 @P.Pipe
+def as_rows(iterable):
+    for item in iterable:
+        for i in range(item.shape[0]):
+            yield item[i]
+
+
+@P.Pipe
 def label_encoder(n=1):
     from sklearn.preprocessing import LabelEncoder
     for item in range(n):
@@ -146,6 +153,12 @@ def transform(iterable, models):
 def dstack(iterable):
     from numpy import dstack
     yield dstack(tuple(iterable))
+
+
+@P.Pipe
+def stack(iterable, *args, **kwargs):
+    from numpy import stack
+    yield stack(tuple(iterable), *args, **kwargs)
 
 
 if __name__ == "__main__":
