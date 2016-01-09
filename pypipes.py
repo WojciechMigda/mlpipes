@@ -133,16 +133,20 @@ def del_key(iterable, key):
 
 
 @P.Pipe
-def debug_iterable(iterable):
-    print("DEBUG iterable:", type(iterable))
+def debug_iterable(iterable, label=None):
+    if label is not None:
+        print(label, end='')
+    print(type(iterable))
     for item in iterable:
         yield item
 
 
 @P.Pipe
-def debug_item(iterable):
-    for item in iterable:
-        print("DEBUG item:", type(item))
+def debug_items(iterable, label=None):
+    for i, item in enumerate(iterable):
+        if label is not None:
+            print(label, end='')
+        print(i, type(item))
         yield item
 
 
