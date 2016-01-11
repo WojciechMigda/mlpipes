@@ -143,6 +143,20 @@ def fit_transform(iterable, models):
 
 
 @P.Pipe
+def fit(iterable, iX, iy):
+    from itertools import izip
+    for model, X, y in izip(iterable, iX, iy):
+        yield model.fit(X, y)
+
+
+@P.Pipe
+def predict(iterable, models):
+    from itertools import izip
+    for X, model in izip(iterable, models):
+        yield model.predict(X)
+
+
+@P.Pipe
 def transform(iterable, models):
     from itertools import izip
     for X, clf in izip(iterable, models):
@@ -159,6 +173,21 @@ def dstack(iterable):
 def stack(iterable, *args, **kwargs):
     from numpy import stack
     yield stack(tuple(iterable), *args, **kwargs)
+
+
+@P.Pipe
+def one_hot_encoder(n=1, **kwargs):
+    from sklearn.preprocessing import OneHotEncoder
+    for item in range(n):
+        yield OneHotEncoder(**kwargs)
+
+
+@P.Pipe
+def savetxt(iterable, fname, **kwargs):
+    from numpy import savetxt
+    for data in iterable:
+        savetxt(fname, data, **kwargs)
+        yield data
 
 
 if __name__ == "__main__":
