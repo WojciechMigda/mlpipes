@@ -190,5 +190,12 @@ def savetxt(iterable, fname, **kwargs):
         yield data
 
 
+@P.Pipe
+def clip(iterable, *args):
+    from numpy import clip
+    for item in iterable:
+        yield clip(item, *args)
+
+
 if __name__ == "__main__":
     pass
